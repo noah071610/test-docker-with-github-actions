@@ -7,19 +7,19 @@ services:
       context: .
       # dockerfile:
     ports:
-      - '7777:3000'
+      - '3000:3000'
     volumes:
       - /usr/src/app/node_modules
       - ./:/usr/src/app
-  test:
-    build:
-      context: .
-      # dockerfile:
-    volumes:
-      - /usr/src/app/node_modules
-      - ./:/usr/src/app
-    command: ['npm', 'run', 'test:watch']
-    # stdin_open: true 리액트 한정
+  # test:
+  #   build:
+  #     context: .
+  #     # dockerfile:
+  #   volumes:
+  #     - /usr/src/app/node_modules
+  #     - ./:/usr/src/app
+  #   command: ['npm', 'run', 'test:watch']
+  # stdin_open: true 리액트 한정
 
   # nginx:
   #   container_name: preonb-nginx
