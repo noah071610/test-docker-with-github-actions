@@ -8,9 +8,16 @@ jobs:
   create-pr-on-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@1.0.0
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
 
       - name: Create pull request
+        if: success() # Only run this step if the previous steps succeeded
         uses: thomaseizinger/create-pull-request@master
         with:
           github_token: ${{ secrets.secret }}
