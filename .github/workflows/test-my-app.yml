@@ -1,0 +1,19 @@
+name: 'test-my-app'
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  create-pr-on-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@1.0.0
+
+      - name: Create pull request
+        uses: thomaseizinger/create-pull-request@master
+        with:
+          github_token: ${{ secrets.secret }}
+          head: ${{ github.ref }}
+          base: main
+          title: 'An automatically created PR!'
