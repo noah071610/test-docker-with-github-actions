@@ -23,4 +23,4 @@ jobs:
           github_token: ${{ secrets.secret }}
           head: ${{ github.ref }}
           base: main
-          title: 'An automatically created PR!'
+          title: 'PR: ${{ github.event.head_commit.message }}'
