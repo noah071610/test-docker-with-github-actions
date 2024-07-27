@@ -1,16 +1,20 @@
-FROM node:latest 
-# as builder
+# Base image
+FROM node:18-alpine
 
+# Create app directory
 WORKDIR /usr/src/app
 
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
+# Install app dependencies
 RUN npm install
 
-COPY ./ ./
+# Bundle app source
+COPY . .
 
-CMD ["npm", "run", "start:dev"]
+# Creates a "dist" folder with the production build
+RUN npm run build
 
-# FROM nginx
-# EXPOSE 80
-# COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+# Start the server using the production build
+CMD [ "node", "dist/main.js" ]
