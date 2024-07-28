@@ -5,7 +5,8 @@ services:
   web:
     build:
       context: .
-      # dockerfile:
+      dockerfile: Dockerfile
+    image: noah071610/test-app:latest
     ports:
       - '3000:3000'
     volumes:

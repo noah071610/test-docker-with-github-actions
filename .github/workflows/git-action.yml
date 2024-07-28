@@ -9,33 +9,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Environment Variable
-        # Step에 Environment Variable 선언
-        env:
-          STEP_ENV: step_environment_variable
-        run: |
-          echo Workflow Environment Variable : $WORKFLOW_ENV
-          echo Job Environment Variable $JOB_ENV
-          echo Step Environment Variable $STEP_ENV
-      - uses: actions/checkout@v3
-      - name: ECHO
-        env:
-          DOCKER_USERNAME: ${{ secrets.ECHO_HELLO_WORLD }}
-          # DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-        run: echo $ECHO_HELLO_WORLD
-      - name: Test 2
-        env:
-          DOCKER_USERNAME_2: ${{ secrets.ECHO_HELLO_WORLD_2 }}
-        run: echo $DOCKER_USERNAME_2
-      # - name: Login Dockerhub
-      #   env:
-      #     DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-      #     DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-      #   run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # - name: Build the Docker image
-      #   run: docker build -t manaweb-api .
-      # - name: tagging
-      #   run: docker tag manaweb-api:latest mag123c/manaweb-api:latest
-      # - name: Push to Dockerhub
-      #   run: docker push mag123c/manaweb-api:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login Dockerhub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: noah071610/test-app:latest
+
+      - name: Docker Compose up
+        run: docker-compose up -d
