@@ -1,0 +1,23 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ['CI Pipeline']
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, label-go]
+
+    steps:
+      - name: Pull Docker image
+        run: sudo docker pull noah071610/test-app-with-actions:latest
+
+      - name: Delete Old docker container
+        run: sudo docker rm -f test-app-with-actions-container || true
+
+      - name: Run Docker Container
+        run: sudo docker run -d -p 3000:3000 --name test-app-with-actions-container noah071610/test-app-with-actions
