@@ -12,9 +12,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Login Dockerhub
         env:
-          DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Login Dockerhub2
+        env:
+          DOCKER_USERNAME_2: ${{ secrets.secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD_2: ${{ secrets.secrets.DOCKERHUB_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME_2 -p $DOCKER_PASSWORD_2
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
