@@ -12,9 +12,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: ECHO
         env:
-          DOCKER_USERNAME: ${{secrets.ECHO_HELLO_WORLD}}
+          DOCKER_USERNAME: ${{ secrets.ECHO_HELLO_WORLD }}
           # DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
         run: echo $ECHO_HELLO_WORLD
+      - name: Test 2
+        env:
+          DOCKER_USERNAME_2: ${{ secrets.ECHO_HELLO_WORLD_2 }}
+        run: echo $DOCKER_USERNAME_2
       # - name: Login Dockerhub
       #   env:
       #     DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
