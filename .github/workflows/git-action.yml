@@ -9,6 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print Environment Variable
+        # Step에 Environment Variable 선언
+        env:
+          STEP_ENV: step_environment_variable
+        run: |
+          echo Workflow Environment Variable : $WORKFLOW_ENV
+          echo Job Environment Variable $JOB_ENV
+          echo Step Environment Variable $STEP_ENV
       - uses: actions/checkout@v3
       - name: ECHO
         env:
