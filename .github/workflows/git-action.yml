@@ -14,13 +14,12 @@ jobs:
         with:
           username: noah071610
           password: ${{secrets.DOCKERHUB_PASSWORD}}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile
-          push: true
-          tags: noah071610/test-app:latest
 
-      - name: Docker Compose up
-        run: docker-compose up -d
+      - name: Build the Docker image
+        run: docker build -t test-app-with-actions .
+
+      - name: tagging
+        run: docker tag test-app-with-actions:latest noah071610/test-app-with-actions:latest
+
+      - name: Push to Dockerhub
+        run: docker push noah071610/test-app-with-actions:latest
