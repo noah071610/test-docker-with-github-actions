@@ -14,7 +14,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{secrets.ECHO_HELLO_WORLD}}
           # DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-        run: echo $DOCKER_USERNAME
+        run: echo $ECHO_HELLO_WORLD
       # - name: Login Dockerhub
       #   env:
       #     DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
