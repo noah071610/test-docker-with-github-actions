@@ -4,6 +4,7 @@
 /build
 *.pem
 *.txt
+conf/nginx.conf
 
 # Logs
 logs
