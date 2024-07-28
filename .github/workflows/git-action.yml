@@ -7,9 +7,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: mytest # 아.... ㅡㅡ 이제 이해됨
+    environment: mytest
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - run: npm ci
+      - run: npm run test
+
       - name: Login Dockerhub
         env:
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
